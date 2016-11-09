@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="com.company.demo.web.order.OrderBrowse"
+        focusComponent="ordersTable"
+        lookupComponent="ordersTable"
+        messagesPack="com.company.demo.web.order">
+    <dsContext>
+        <collectionDatasource id="ordersDs"
+                              class="com.company.demo.entity.Order"
+                              view="order-browse">
+            <query>
+                <![CDATA[select e from demo$Order e]]>
+                <filter>
+                    <and>
+                        <c>e.customer.id = :component$customerField</c>
+                    </and>
+                </filter>
+            </query>
+        </collectionDatasource>
+        <datasource id="customerDs"
+                    class="com.company.demo.entity.Customer"
+                    view="_local"/>
+        <collectionDatasource id="customersDs"
+                              class="com.company.demo.entity.Customer"
+                              view="_local">
+            <query>
+                <![CDATA[select e from demo$Customer e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="mainBox"
+            spacing="true">
+        <lookupField id="customerField"
+                     caption="Customers List"
+                     optionsDatasource="customersDs"
+                     width="300px"/>
+        <hbox id="mainBox"
+              expand="ordersBox"
+              spacing="true"
+              width="100%">
+            <groupBox id="ordersBox"
+                      caption="Orders"
+                      expand="ordersTable"
+                      height="100%">
+                <table id="ordersTable"
+                       width="100%">
+                    <actions>
+                        <action id="create"/>
+                        <action id="edit"/>
+                        <action id="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="customer"/>
+                        <column id="date"/>
+                        <column id="amount"/>
+                        <column id="description"/>
+                    </columns>
+                    <rows datasource="ordersDs"/>
+                    <rowsCount/>
+                    <buttonsPanel id="buttonsPanel"
+                                  alwaysVisible="true">
+                        <button id="createBtn"
+                                action="ordersTable.create"/>
+                        <button id="editBtn"
+                                action="ordersTable.edit"/>
+                        <button id="removeBtn"
+                                action="ordersTable.remove"/>
+                    </buttonsPanel>
+                </table>
+            </groupBox>
+            <groupBox caption="Customer"
+                      width="AUTO"
+                      height="100%">
+                <fieldGroup id="fieldGroup"
+                            editable="false"
+                            datasource="customerDs">
+                    <column width="250px">
+                        <field id="name"/>
+                        <field id="lastName"/>
+                        <field id="age"/>
+                        <field id="active"/>
+                        <field id="grade"/>
+                    </column>
+                </fieldGroup>
+            </groupBox>
+        </hbox>
+    </layout>
+</window>

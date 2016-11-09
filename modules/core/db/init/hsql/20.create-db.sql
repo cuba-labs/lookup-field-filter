@@ -1,0 +1,10 @@
+-- begin DEMO_ORDER_ITEM
+alter table DEMO_ORDER_ITEM add constraint FK_DEMO_ORDER_ITEM_PRODUCT foreign key (PRODUCT_ID) references DEMO_PRODUCT(ID)^
+alter table DEMO_ORDER_ITEM add constraint FK_DEMO_ORDER_ITEM_ORDER foreign key (ORDER_ID) references DEMO_ORDER(ID)^
+create index IDX_DEMO_ORDER_ITEM_ORDER on DEMO_ORDER_ITEM (ORDER_ID)^
+create index IDX_DEMO_ORDER_ITEM_PRODUCT on DEMO_ORDER_ITEM (PRODUCT_ID)^
+-- end DEMO_ORDER_ITEM
+-- begin DEMO_ORDER
+alter table DEMO_ORDER add constraint FK_DEMO_ORDER_CUSTOMER foreign key (CUSTOMER_ID) references DEMO_CUSTOMER(ID)^
+create index IDX_DEMO_ORDER_CUSTOMER on DEMO_ORDER (CUSTOMER_ID)^
+-- end DEMO_ORDER

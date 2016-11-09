@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editCaption"
+        class="com.company.demo.web.order.OrderEdit"
+        datasource="orderDs"
+        focusComponent="fieldGroup"
+        messagesPack="com.company.demo.web.order">
+    <dsContext>
+        <datasource id="orderDs"
+                    class="com.company.demo.entity.Order"
+                    view="order-edit">
+            <collectionDatasource id="itemsDs"
+                                  property="items"/>
+        </datasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="windowActions"
+            spacing="true">
+        <fieldGroup id="fieldGroup"
+                    datasource="orderDs">
+            <column width="250px">
+                <field id="customer"/>
+                <field id="date"/>
+                <field id="amount"/>
+                <field id="description"
+                       rows="5"/>
+            </column>
+        </fieldGroup>
+        <groupBox id="itemsBox"
+                  caption="msg://com.company.demo.entity/Order.items">
+            <table id="itemsTable"
+                   height="200px"
+                   width="100%">
+                <actions>
+                    <action id="create"/>
+                    <action id="edit"/>
+                    <action id="remove"/>
+                </actions>
+                <columns>
+                    <column id="product"/>
+                    <column id="quantity"/>
+                </columns>
+                <rows datasource="itemsDs"/>
+                <buttonsPanel>
+                    <button action="itemsTable.create"/>
+                    <button action="itemsTable.edit"/>
+                    <button action="itemsTable.remove"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>
